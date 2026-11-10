@@ -1,0 +1,37 @@
+[
+  {
+    "order_id": "PED-1001",
+    "status": "em_preparo",
+    "eta_minutes": 35,
+    "items": ["Lasanha à Bolonhesa", "Refrigerante lata"],
+    "updated_at": "2026-11-04T19:05:00-03:00"
+  },
+  {
+    "order_id": "PED-1002",
+    "status": "saiu_para_entrega",
+    "eta_minutes": 12,
+    "items": ["Pizza Margherita", "Tiramisù"],
+    "updated_at": "2026-11-04T19:20:00-03:00"
+  },
+  {
+    "order_id": "PED-1003",
+    "status": "entregue",
+    "eta_minutes": null,
+    "items": ["Penne ao Pesto"],
+    "updated_at": "2026-11-04T18:40:00-03:00"
+  },
+  {
+    "order_id": "PED-1004",
+    "status": "cancelado",
+    "eta_minutes": null,
+    "items": ["Spaghetti à Carbonara"],
+    "updated_at": "2026-11-04T18:10:00-03:00"
+  },
+  {
+    "order_id": "PED-1005",
+    "status": "recebido",
+    "eta_minutes": 50,
+    "items": ["Risoto de Cogumelos Vegano", "Suco natural"],
+    "updated_at": "2026-11-04T19:25:00-03:00"
+  }
+]
