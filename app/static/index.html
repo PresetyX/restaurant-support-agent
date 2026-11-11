@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bella Massa · Atendimento</title>
+  <style>
+    :root { --bg:#faf7f2; --card:#fff; --ink:#2b2622; --muted:#7a6f66; --accent:#c8412b; --line:#e9e1d6; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, sans-serif; background:var(--bg); color:var(--ink); }
+    main { max-width: 720px; margin: 0 auto; padding: 24px 16px; display:flex; flex-direction:column; height:100vh; }
+    header h1 { margin:0; font-size:1.3rem; } header p { margin:4px 0 16px; color:var(--muted); font-size:.9rem; }
+    #log { flex:1; overflow-y:auto; display:flex; flex-direction:column; gap:12px; padding-bottom:12px; }
+    .msg { max-width:85%; padding:10px 14px; border-radius:14px; white-space:pre-wrap; line-height:1.45; }
+    .user { align-self:flex-end; background:var(--accent); color:#fff; border-bottom-right-radius:4px; }
+    .bot { align-self:flex-start; background:var(--card); border:1px solid var(--line); border-bottom-left-radius:4px; }
+    .meta { font-size:.75rem; color:var(--muted); margin-top:6px; }
+    .tag { display:inline-block; padding:1px 8px; border-radius:99px; background:#f1ebe2; margin-right:4px; }
+    .handoff { background:#fde7e2; color:#8a2a1a; }
+    .chips { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:10px; }
+    .chips button { border:1px solid var(--line); background:var(--card); border-radius:99px; padding:6px 12px; cursor:pointer; font-size:.85rem; }
+    form { display:flex; gap:8px; }
+    input { flex:1; padding:12px 14px; border-radius:12px; border:1px solid var(--line); font-size:1rem; }
+    form button { padding:0 18px; border:0; border-radius:12px; background:var(--accent); color:#fff; font-weight:600; cursor:pointer; }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>Cantina Bella Massa · Atendimento</h1>
+    <p>Demo de agente com RAG, tool calling e transferência para humano. Restaurante fictício.</p>
+  </header>
+  <div id="log"></div>
+  <div class="chips">
+    <button>Cadê meu pedido PED-1002?</button>
+    <button>Tem opção sem glúten?</button>
+    <button>Qual a taxa de entrega?</button>
+    <button>Aceitam Pix?</button>
+    <button>Meu pedido veio errado</button>
+  </div>
+  <form id="f">
+    <input id="q" placeholder="Digite sua mensagem…" autocomplete="off" maxlength="1000" />
+    <button>Enviar</button>
+  </form>
+</main>
+<script>
+  const log = document.getElementById("log");
+  const input = document.getElementById("q");
+  let sessionId = null;
+
+  function add(text, cls, meta) {
+    const el = document.createElement("div");
+    el.className = "msg " + cls;
+    el.textContent = text;
+    if (meta) { const m = document.createElement("div"); m.className = "meta"; m.innerHTML = meta; el.appendChild(m); }
+    log.appendChild(el); log.scrollTop = log.scrollHeight;
+  }
+  const esc = (s) => s.replace(/[&<>"]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+  async function send(text) {
+    if (!text.trim()) return;
+    add(text, "user"); input.value = "";
+    try {
+      const r = await fetch("/chat", { method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text, session_id: sessionId }) });
+      const d = await r.json();
+      sessionId = d.session_id;
+      const tags = [`<span class="tag">${esc(d.intent)}</span>`, `<span class="tag">${esc(d.mode)}</span>`];
+      d.tool_calls.forEach((t) => tags.push(`<span class="tag">🔧 ${esc(t.name)}</span>`));
+      if (d.handed_off) tags.push(`<span class="tag handoff">👤 ${esc(d.ticket_id)}</span>`);
+      const src = d.sources.length ? `<br>Fontes: ${d.sources.map(esc).join(", ")}` : "";
+      add(d.answer, "bot", tags.join("") + src);
+    } catch (e) { add("Erro ao falar com o servidor.", "bot"); }
+  }
+  document.getElementById("f").addEventListener("submit", (e) => { e.preventDefault(); send(input.value); });
+  document.querySelectorAll(".chips button").forEach((b) => b.addEventListener("click", () => send(b.textContent)));
+</script>
+</body>
+</html>
