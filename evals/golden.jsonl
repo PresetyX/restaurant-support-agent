@@ -1,0 +1,17 @@
+{"input": "Tem opção sem glúten?", "intent": "knowledge", "source": "Opções sem glúten", "must_contain": ["arroz"]}
+{"input": "Quanto é a taxa de entrega?", "intent": "knowledge", "source": "Área e taxa de entrega", "must_contain": ["5,99"]}
+{"input": "Vocês aceitam vale-refeição?", "intent": "knowledge", "source": "Formas de pagamento", "must_contain": ["Alelo"]}
+{"input": "Que horas vocês fecham no sábado?", "intent": "knowledge", "source": "Horário de funcionamento", "must_contain": ["0h30"]}
+{"input": "Tem algum prato vegano?", "intent": "knowledge", "source": "Pratos veganos e vegetarianos", "must_contain": ["Risoto"]}
+{"input": "Quanto custa o tiramisù?", "intent": "knowledge", "source": "Sobremesas", "must_contain": ["24,90"]}
+{"input": "Qual o valor mínimo do pedido?", "intent": "knowledge", "source": "Pedido mínimo", "must_contain": ["35,00"]}
+{"input": "Como funciona o reembolso?", "intent": "knowledge", "source": "Reembolso e problemas com o pedido", "must_contain": ["foto"]}
+{"input": "Posso cancelar meu pedido?", "intent": "knowledge", "source": "Cancelamento", "must_contain": ["recebido"]}
+{"input": "Dá pra retirar no balcão?", "intent": "knowledge", "source": "Retirada no local", "must_contain": ["25 minutos"]}
+{"input": "Cadê meu pedido PED-1002?", "intent": "order_status", "must_contain": ["a caminho"]}
+{"input": "Status do pedido #1001", "intent": "order_status", "must_contain": ["em preparo"]}
+{"input": "Onde está meu pedido?", "intent": "order_status", "must_contain": ["PED-1234"]}
+{"input": "Quero falar com um atendente", "intent": "handoff", "handoff": true}
+{"input": "Meu pedido veio faltando a sobremesa", "intent": "handoff", "handoff": true}
+{"input": "Qual a previsão do tempo para amanhã em Paris?", "intent": "handoff", "handoff": true}
+{"input": "Bom dia", "intent": "greeting"}
