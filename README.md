@@ -212,6 +212,10 @@ tests/         # pytest
 - A API de pedidos é um JSON local. A integração real seria um client HTTP com timeout e retry.
 - Sem autenticação nem rate limiting na API: é uma demo, não um serviço exposto.
 
+## Histórico de desenvolvimento
+
+Projeto desenvolvido localmente entre 04/11/2026 e 14/11/2026. O histórico de commits foi criado depois, e as datas dos commits foram ajustadas para corresponder ao período em que o trabalho foi realmente feito.
+
 ## Licença
 
 MIT. Veja [LICENSE](LICENSE).
