@@ -14,7 +14,7 @@ cardápio e políticas com **RAG**, consulta o status de pedidos com **tool call
 ![Demo do agente](docs/demo.png)
 
 <!-- Troque pelo GIF quando gravar: ![Demo animada](docs/demo.gif) -->
-<!-- Demo online: [link do deploy](https://SEU-DEPLOY-AQUI) -->
+**Demo online:** [restaurant-support-agent.vercel.app](https://restaurant-support-agent.vercel.app) (modo offline, sem chave de API; os dados são fictícios e o histórico não é persistido entre execuções)
 
 ---
 
